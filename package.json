@@ -1,15 +1,65 @@
 {
   "name": "elysia-throttle-guard",
-  "version": "1.0.50",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+  "version": "1.0.0",
+  "description": "A simple rate limiter for ElysiaJS",
+  "author": {
+    "name": "hknsh",
+    "url": "https://github.com/hknsh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hknsh/elysia-throttle-guard.git"
+  },
+  "main": "./dist/index.js",
+  "exports": {
+    "require": "./dist/index.js",
+    "import": "./dist/index.js",
+    "node": "./dist/index.js",
+    "default": "./dist/index.js",
+    "types": "./dist/index.js"
+  },
+  "types": "./dist/index.d.ts",
+  "bugs": "https://github.com/hknsh/elysia-throttle-guard/issues",
+  "homepage": "https://github.com/hknsh/elysia-throttle-guard",
+  "keywords": [
+    "elysia",
+    "throttle",
+    "guard",
+    "rate-limit",
+    "ratelimit",
+    "redis"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@biomejs/biome": "1.8.3",
+    "@commitlint/cli": "^19.4.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@types/debug": "^4.1.12",
+    "bun-types": "latest",
+    "elysia": "latest",
+    "elysia-ip": "^1.0.7",
+    "husky": "^9.1.5",
+    "ioredis": "^5.4.1",
+    "redis": "^4.7.0"
+  },
+  "peerDependencies": {
+    "elysia": ">=1.0.0"
   },
   "dependencies": {
-    "elysia": "latest"
+    "debug": "^4.3.6",
+    "lru-cache": "^11.0.0"
   },
-  "devDependencies": {
-    "bun-types": "latest"
+  "scripts": {
+    "dev": "NODE_DEBUG=* bun run --hot examples/basic_usage.ts",
+    "prepare": "husky",
+    "build": "rm -rf dist && tsc --project tsconfig.esm.json",
+    "lint": "bunx @biomejs/biome check --write ."
   },
-  "module": "src/index.js"
+  "lint-staged": {
+    "**/*.@(js|ts|json)": "biome check --write --no-errors-on-unmatched"
+  }
 }
